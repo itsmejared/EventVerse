@@ -11,8 +11,11 @@
     "http"
   ],
   "paths": {
-    "/venues/": {
+    "/events/": {
       "get": {
+        "tags": [
+          "Events"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -21,6 +24,181 @@
         }
       },
       "post": {
+        "tags": [
+          "Events"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "category": {
+                  "example": "any"
+                },
+                "date": {
+                  "example": "any"
+                },
+                "ticketPrice": {
+                  "example": "any"
+                },
+                "totalCapacity": {
+                  "example": "any"
+                },
+                "organizerEmail": {
+                  "example": "any"
+                },
+                "isPublished": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/events/{id}": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Events"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "category": {
+                  "example": "any"
+                },
+                "date": {
+                  "example": "any"
+                },
+                "ticketPrice": {
+                  "example": "any"
+                },
+                "totalCapacity": {
+                  "example": "any"
+                },
+                "organizerEmail": {
+                  "example": "any"
+                },
+                "isPublished": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Events"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/venues/": {
+      "get": {
+        "tags": [
+          "Venues"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Venues"
+        ],
         "description": "",
         "parameters": [
           {
@@ -60,6 +238,9 @@
     },
     "/venues/{id}": {
       "get": {
+        "tags": [
+          "Venues"
+        ],
         "description": "",
         "parameters": [
           {
@@ -82,6 +263,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Venues"
+        ],
         "description": "",
         "parameters": [
           {
@@ -128,6 +312,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Venues"
+        ],
         "description": "",
         "parameters": [
           {
