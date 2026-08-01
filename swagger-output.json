@@ -11,18 +11,11 @@
     "http"
   ],
   "paths": {
-    "/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/events/": {
       "get": {
+        "tags": [
+          "Events"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -31,6 +24,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Events"
+        ],
         "description": "",
         "parameters": [
           {
@@ -79,6 +75,9 @@
     },
     "/events/{id}": {
       "get": {
+        "tags": [
+          "Events"
+        ],
         "description": "",
         "parameters": [
           {
@@ -101,6 +100,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Events"
+        ],
         "description": "",
         "parameters": [
           {
@@ -156,6 +158,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Events"
+        ],
         "description": "",
         "parameters": [
           {
@@ -180,6 +185,9 @@
     },
     "/venues/": {
       "get": {
+        "tags": [
+          "Venues"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -188,6 +196,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Venues"
+        ],
         "description": "",
         "parameters": [
           {
@@ -227,6 +238,9 @@
     },
     "/venues/{id}": {
       "get": {
+        "tags": [
+          "Venues"
+        ],
         "description": "",
         "parameters": [
           {
@@ -249,6 +263,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Venues"
+        ],
         "description": "",
         "parameters": [
           {
@@ -295,6 +312,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Venues"
+        ],
         "description": "",
         "parameters": [
           {

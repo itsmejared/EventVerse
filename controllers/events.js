@@ -4,6 +4,7 @@ import { getDb } from "../database/connection.js";
 
 // GET /events - Retrieve all events
 export const getAllEvents = async (req, res, next) => {
+  // #swagger.tags = ['Events']
   try {
     const db = getDb();
     const events = await db.collection("events").find().toArray();
@@ -15,6 +16,7 @@ export const getAllEvents = async (req, res, next) => {
 
 // GET /events/:id - Retrieve a single event by ID
 export const getEventById = async (req, res, next) => {
+  // #swagger.tags = ['Events']
   try {
     const db = getDb();
     const event = await db.collection("events").findOne({ _id: new ObjectId(req.params.id) });
@@ -31,6 +33,7 @@ export const getEventById = async (req, res, next) => {
 
 // POST /events - Create a new event
 export const createEvent = async (req, res, next) => {
+  // #swagger.tags = ['Events']
   try {
     const db = getDb();
     const newEvent = {
@@ -53,6 +56,7 @@ export const createEvent = async (req, res, next) => {
 
 // PUT /events/:id - Update an event
 export const updateEvent = async (req, res, next) => {
+  // #swagger.tags = ['Events']
   try {
     const db = getDb();
     const updatedData = {
@@ -82,6 +86,7 @@ export const updateEvent = async (req, res, next) => {
 
 // DELETE /events/:id - Delete an event
 export const deleteEvent = async (req, res, next) => {
+  // #swagger.tags = ['Events']
   try {
     const db = getDb();
     const result = await db.collection("events").deleteOne({ _id: new ObjectId(req.params.id) });
