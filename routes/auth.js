@@ -3,20 +3,24 @@ import passport from "../passport.js";
 
 const router = Router();
 
-router.get("/login", passport.authenticate("github", { scope: ["user:email"] }));
+router.get("/login", (req, res, next) => {
+  // #swagger.ignore = true
+  passport.authenticate("github", { scope: ["user:email"] })(req, res, next);
+});
 
-router.get(
-  "/callback",
+router.get("/callback", (req, res, next) => {
+  // #swagger.ignore = true
   passport.authenticate("github", {
     failureRedirect: "/api-docs",
-    sucessRedirect: "/",
-  })
-);
+    successRedirect: "/api-docs",
+  })(req, res, next);
+});
 
 router.get("/logout", (req, res, next) => {
+  // #swagger.ignore = true
   req.logout((err) => {
     if (err) return next(err);
-    res.redirect("/");
+    res.redirect("/api-docs");
   });
 });
 

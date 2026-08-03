@@ -1,6 +1,8 @@
 import express from "express";
 import eventsRoutes from "./events.js";
 import venuesRoutes from "./venues.js";
+import authRoutes from "./auth.js";
+import isAuthenticated from "../middleware/isAuthenticated.js";
 
 const router = express.Router();
 
@@ -9,7 +11,8 @@ router.get("/", (req, res) => {
   res.redirect("/api-docs");
 });
 
-router.use("/events", eventsRoutes);
-router.use("/venues", venuesRoutes);
+router.use("/auth", authRoutes);
+router.use("/events", isAuthenticated, eventsRoutes);
+router.use("/venues", isAuthenticated, venuesRoutes);
 
 export default router;

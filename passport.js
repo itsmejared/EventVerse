@@ -1,10 +1,6 @@
 import passport from "passport";
 import { Strategy as GitHubStrategy } from "passport-github2";
-import { getDb } from "../database/connection.js";
-
-const db = getDb();
-
-const usersCollection = db.collection("users");
+import { getDb } from "./database/connection.js";
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -23,6 +19,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
+        const usersCollection = getDb().collection("users");
         let user = await usersCollection.findOne({ githubId: profile.id });
 
         if (!user) {
