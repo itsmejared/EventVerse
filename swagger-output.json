@@ -11,6 +11,19 @@
     "http"
   ],
   "paths": {
+    "/auth/user": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
     "/events/": {
       "get": {
         "tags": [
