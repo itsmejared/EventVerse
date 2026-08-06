@@ -65,3 +65,24 @@ export const validateVenue = (req, res, next) => {
 
   next();
 };
+//Tickets Collection
+export const validateTicket = (req, res, next) => {
+  const { eventId, userEmail, purchaseDate, seatNumber, pricePaid, status } = req.body;
+
+  if (!eventId || !userEmail || !purchaseDate || !seatNumber || pricePaid === undefined || !status) {
+    return res.status(400).json({
+      message:
+        "All fields are required: eventId, userEmail, purchaseDate, seatNumber, pricePaid, status",
+    });
+  }
+
+  if (!ObjectId.isValid(eventId)) {
+    return res.status(400).json({ message: "eventId must be a valid MongoDB ObjectId" });
+  }
+
+  if (typeof pricePaid !== "number" || pricePaid < 0) {
+    return res.status(400).json({ message: "pricePaid must be a number >= 0" });
+  }
+
+  next();
+};
