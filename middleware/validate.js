@@ -69,7 +69,14 @@ export const validateVenue = (req, res, next) => {
 export const validateTicket = (req, res, next) => {
   const { eventId, userEmail, purchaseDate, seatNumber, pricePaid, status } = req.body;
 
-  if (!eventId || !userEmail || !purchaseDate || !seatNumber || pricePaid === undefined || !status) {
+  if (
+    !eventId ||
+    !userEmail ||
+    !purchaseDate ||
+    !seatNumber ||
+    pricePaid === undefined ||
+    !status
+  ) {
     return res.status(400).json({
       message:
         "All fields are required: eventId, userEmail, purchaseDate, seatNumber, pricePaid, status",
@@ -82,6 +89,27 @@ export const validateTicket = (req, res, next) => {
 
   if (typeof pricePaid !== "number" || pricePaid < 0) {
     return res.status(400).json({ message: "pricePaid must be a number >= 0" });
+  }
+
+  next();
+};
+
+// Reviews Collection
+export const validateReview = (req, res, next) => {
+  const { eventId, userEmail, rating, comment } = req.body;
+
+  if (!eventId || !userEmail || rating === undefined || !comment) {
+    return res.status(400).json({
+      message: "All fields are required: eventId, userEmail, rating, comment",
+    });
+  }
+
+  if (!ObjectId.isValid(eventId)) {
+    return res.status(400).json({ message: "eventId must be a valid MongoDB ObjectId" });
+  }
+
+  if (typeof rating !== "number" || rating < 1 || rating > 5) {
+    return res.status(400).json({ message: "rating must be a number between 1 and 5" });
   }
 
   next();
