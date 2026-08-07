@@ -16,6 +16,6 @@ router.get("/", getAllVenues);
 router.get("/:id", getVenueById);
 router.post("/", isAuthenticated, validateVenue, createVenue);
 router.put("/:id", isAuthenticated, validateVenue, updateVenue);
-router.delete("/:id", deleteVenue);
+router.delete("/:id", isAuthenticated, deleteVenue);
 
 export default router;
