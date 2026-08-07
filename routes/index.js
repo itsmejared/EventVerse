@@ -4,7 +4,7 @@ import venuesRoutes from "./venues.js";
 import ticketsRoutes from "./tickets.js";
 import reviewsRoutes from "./reviews.js";
 import authRoutes from "./auth.js";
-import isAuthenticated from "../middleware/isAuthenticated.js";
+//import isAuthenticated from "../middleware/isAuthenticated.js";
 
 const router = express.Router();
 
@@ -14,8 +14,8 @@ router.get("/", (req, res) => {
 });
 
 router.use("/auth", authRoutes);
-router.use("/events", isAuthenticated, eventsRoutes);
-router.use("/venues", isAuthenticated, venuesRoutes);
-router.use("/tickets", isAuthenticated, ticketsRoutes);
-router.use("/reviews", isAuthenticated, reviewsRoutes);
+router.use("/events", eventsRoutes);
+router.use("/venues", venuesRoutes);
+router.use("/tickets", ticketsRoutes);
+router.use("/reviews", reviewsRoutes);
 export default router;

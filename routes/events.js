@@ -7,13 +7,15 @@ import {
   deleteEvent,
 } from "../controllers/events.js";
 import { validateEvent, validateId } from "../middleware/validate.js";
+import isAuthenticated from "../middleware/isAuthenticated.js";
+
 
 const router = express.Router();
 
 router.get("/", getAllEvents);
 router.get("/:id", validateId, getEventById);
-router.post("/", validateEvent, createEvent);
-router.put("/:id", validateId, validateEvent, updateEvent);
-router.delete("/:id", validateId, deleteEvent);
+router.post("/", isAuthenticated, validateEvent, createEvent);
+router.put("/:id", validateId, isAuthenticated, validateEvent, updateEvent);
+router.delete("/:id", validateId, isAuthenticated, deleteEvent);
 
 export default router;
