@@ -73,13 +73,19 @@ app
   .use("/", routes)
   .use(errorHandler);
 
-initDb()
-  .then(() => {
-    app.listen(PORT, () => {
-      const load_route = process.env.RENDER_EXTERNAL_HOSTNAME || "http://localhost";
-      console.log(`Server running on ${load_route}:${PORT}`);
+if (process.env.NODE_ENV !== "test") {
+  initDb()
+    .then(() => {
+      app.listen(PORT, () => {
+        const load_route = process.env.RENDER_EXTERNAL_HOSTNAME
+          ? `https://${process.env.RENDER_EXTERNAL_HOSTNAME}`
+          : `http://localhost:${PORT}`;
+        console.log(`Server running on ${load_route}`);
+      });
+    })
+    .catch((err) => {
+      console.error("Failed to start server due to database connection error:", err);
     });
-  })
-  .catch((err) => {
-    console.error("Failed to start server due to database connection error:", err);
-  });
+}
+
+export default app;
