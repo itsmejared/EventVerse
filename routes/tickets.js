@@ -8,13 +8,14 @@ import {
   deleteTicket,
 } from "../controllers/tickets.js";
 import { validateTicket } from "../middleware/validate.js";
+import isAuthenticated from "../middleware/isAuthenticated.js";
 
 const router = express.Router();
 
 router.get("/", getAllTickets);
 router.get("/:id", getTicketById);
-router.post("/", validateTicket, createTicket);
-router.put("/:id", validateTicket, updateTicket);
-router.delete("/:id", deleteTicket);
+router.post("/", isAuthenticated, validateTicket, createTicket);
+router.put("/:id", isAuthenticated, validateTicket, updateTicket);
+router.delete("/:id", isAuthenticated, deleteTicket);
 
 export default router;
