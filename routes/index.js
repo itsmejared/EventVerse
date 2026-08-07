@@ -4,7 +4,7 @@ import venuesRoutes from "./venues.js";
 import ticketsRoutes from "./tickets.js";
 import reviewsRoutes from "./reviews.js";
 import authRoutes from "./auth.js";
-import isAuthenticated from "../middleware/isAuthenticated.js";
+//import isAuthenticated from "../middleware/isAuthenticated.js";
 
 const router = express.Router();
 

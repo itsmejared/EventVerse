@@ -8,13 +8,14 @@ import {
   deleteVenue,
 } from "../controllers/venues.js";
 import { validateVenue } from "../middleware/validate.js";
+import isAuthenticated from "../middleware/isAuthenticated.js";
 
 const router = express.Router();
 
 router.get("/", getAllVenues);
 router.get("/:id", getVenueById);
-router.post("/", validateVenue, createVenue);
-router.put("/:id", validateVenue, updateVenue);
+router.post("/", isAuthenticated, validateVenue, createVenue);
+router.put("/:id", isAuthenticated, validateVenue, updateVenue);
 router.delete("/:id", deleteVenue);
 
 export default router;
