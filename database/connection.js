@@ -16,7 +16,9 @@ const initDb = async () => {
 
   const client = await MongoClient.connect(process.env.MONGODB_URI);
   _db = client.db();
-  console.log("Connected to MongoDB");
+  if (process.env.NODE_ENV !== "test") {
+    console.log("Connected to MongoDB");
+  }
   return _db;
 };
 

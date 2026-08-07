@@ -8,7 +8,7 @@
     "dev": "node swagger.js && nodemon server.js",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --forceExit --runInBand"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose --detectOpenHandles --forceExit --runInBand"
   },
   "author": "Jared Huayta, Artur Calderon and Katherine Gonzales",
   "license": "ISC",
@@ -25,7 +25,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "cross-env": "^10.1.0",
     "eslint": "^10.7.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.6",

@@ -3,14 +3,8 @@ import app from "../server.js";
 import { initDb } from "../database/connection.js";
 
 describe("Venues API Unit Tests (GET endpoints)", () => {
-  beforeAll((done) => {
-    initDb((err) => {
-      if (err) {
-        done(err);
-      } else {
-        done();
-      }
-    });
+  beforeAll(async () => {
+    await initDb();
   });
 
   describe("GET /venues endpoints", () => {
