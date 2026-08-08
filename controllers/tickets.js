@@ -79,7 +79,7 @@ export const updateTicket = async (req, res, next) => {
       return res.status(404).json({ message: "Ticket not found" });
     }
 
-    res.status(200).json({ message: "Ticket updated successfully" });
+    res.status(204).send();
   } catch (error) {
     next(error);
   }

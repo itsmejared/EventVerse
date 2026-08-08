@@ -65,7 +65,7 @@ export const updateVenue = async (req, res, next) => {
       return res.status(404).json({ message: "Venue not found" });
     }
 
-    res.status(200).json({ message: "Venue updated successfully" });
+    res.status(204).send();
   } catch (error) {
     next(error);
   }
