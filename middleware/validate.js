@@ -1,4 +1,3 @@
-// middleware/validate.js
 import { ObjectId } from "mongodb";
 
 //Events Collection

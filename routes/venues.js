@@ -1,4 +1,3 @@
-// routes/venues.js
 import express from "express";
 import {
   getAllVenues,
@@ -7,15 +6,19 @@ import {
   updateVenue,
   deleteVenue,
 } from "../controllers/venues.js";
-import { validateVenue } from "../middleware/validate.js";
-import isAuthenticated from "../middleware/isAuthenticated.js";
+import { validateVenue, validateId } from "../middleware/validate.js";
+import pkg from "express-openid-connect";
 
+const { requiresAuth } = pkg;
 const router = express.Router();
 
+// PUBLIC ROUTES (No login required)
 router.get("/", getAllVenues);
-router.get("/:id", getVenueById);
-router.post("/", isAuthenticated, validateVenue, createVenue);
-router.put("/:id", isAuthenticated, validateVenue, updateVenue);
-router.delete("/:id", isAuthenticated, deleteVenue);
+router.get("/:id", validateId, getVenueById);
+
+// PROTECTED ROUTES (Requires active Auth0 session)
+router.post("/", requiresAuth(), validateVenue, createVenue);
+router.put("/:id", requiresAuth(), validateId, validateVenue, updateVenue);
+router.delete("/:id", requiresAuth(), validateId, deleteVenue);
 
 export default router;

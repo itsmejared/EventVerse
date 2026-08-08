@@ -3,8 +3,6 @@ import eventsRoutes from "./events.js";
 import venuesRoutes from "./venues.js";
 import ticketsRoutes from "./tickets.js";
 import reviewsRoutes from "./reviews.js";
-import authRoutes from "./auth.js";
-//import isAuthenticated from "../middleware/isAuthenticated.js";
 
 const router = express.Router();
 
@@ -13,7 +11,24 @@ router.get("/", (req, res) => {
   res.redirect("/api-docs");
 });
 
-router.use("/auth", authRoutes);
+router.get("/auth-status", (req, res) => {
+  // #swagger.ignore = true
+  if (req.oidc.isAuthenticated()) {
+    res.json({
+      isAuthenticated: true,
+      user: {
+        name: req.oidc.user.name || req.oidc.user.nickname || req.oidc.user.email,
+        email: req.oidc.user.email,
+      },
+    });
+  } else {
+    res.json({
+      isAuthenticated: false,
+      user: null,
+    });
+  }
+});
+
 router.use("/events", eventsRoutes);
 router.use("/venues", venuesRoutes);
 router.use("/tickets", ticketsRoutes);

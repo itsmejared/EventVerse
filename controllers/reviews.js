@@ -45,7 +45,7 @@ export const createReview = async (req, res, next) => {
 
     const db = getDb();
     const result = await db.collection("reviews").insertOne(newReview);
-    res.status(201).json({ acknowledged: result.acknowledged, insertedId: result.insertedId });
+    res.status(201).json({ _id: result.insertedId, ...newReview });
   } catch (error) {
     next(error);
   }
