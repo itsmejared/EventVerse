@@ -7,13 +7,18 @@ import {
   deleteReview,
 } from "../controllers/reviews.js";
 import { validateReview, validateId } from "../middleware/validate.js";
+import pkg from "express-openid-connect";
 
+const { requiresAuth } = pkg;
 const router = express.Router();
 
+// PUBLIC ROUTES (No login required)
 router.get("/", getAllReviews);
 router.get("/:id", validateId, getReviewById);
-router.post("/", validateReview, createReview);
-router.put("/:id", validateId, validateReview, updateReview);
-router.delete("/:id", validateId, deleteReview);
+
+// PROTECTED ROUTES (Requires active Auth0 session)
+router.post("/", requiresAuth(), validateReview, createReview);
+router.put("/:id", requiresAuth(), validateId, validateReview, updateReview);
+router.delete("/:id", requiresAuth(), validateId, deleteReview);
 
 export default router;

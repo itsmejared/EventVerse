@@ -1,8 +1,8 @@
 import "dotenv/config";
 import express from "express";
-import session from "express-session";
-import passport from "./passport.js";
 import cors from "cors";
+import authPkg from "express-openid-connect";
+const { auth } = authPkg;
 import swaggerUi from "swagger-ui-express";
 import { createRequire } from "module";
 import { initDb } from "./database/connection.js";
@@ -14,41 +14,16 @@ const swaggerDocument = require("./swagger-output.json");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const customOptions = {
-  customSiteTitle: "Eventverse API - Documentation",
-  customJs: "/swagger-auth-status.js",
-  customCss: `
-    .auth-status-banner {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      padding: 10px 16px;
-      font-family: sans-serif;
-      font-size: 14px;
-      border-bottom: 1px solid #d0d7de;
-      background: #f6f8fa;
-      color: #24292f;
-    }
-    .auth-status-banner a {
-      color: inherit;
-      font-weight: 600;
-      text-decoration: underline;
-    }
-    .auth-status-logged-in {
-      background: #dafbe1;
-      border-bottom-color: #4ac26b;
-    }
-    .auth-status-logged-out {
-      background: #fff8c5;
-      border-bottom-color: #d4a72c;
-    }
-    .auth-status-error {
-      background: #ffebe9;
-      border-bottom-color: #ff8182;
-    }
-  `,
+
+// Auth0 Configuration
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  secret: process.env.SECRET,
+  baseURL: process.env.BASE_URL || `http://localhost:${PORT}`,
+  clientID: process.env.CLIENT_ID,
+  issuerBaseURL: process.env.ISSUER_BASE_URL,
 };
-app.set("trust proxy", 1); // Trust first proxy for secure cookies
 
 // Middleware
 app
@@ -56,20 +31,14 @@ app
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
   .use(express.static("public"))
+  .use(auth(config))
   .use(
-    session({
-      secret: process.env.SESSION_SECRET || "default_secret",
-      resave: false,
-      saveUninitialized: false,
-      cookie: {
-        secure: process.env.NODE_ENV === "production", // Use secure cookies in production
-        maxAge: 24 * 60 * 60 * 1000, // 1 day
-      },
+    "/api-docs",
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocument, {
+      customJs: "/swagger-auth-status.js",
     })
   )
-  .use(passport.initialize())
-  .use(passport.session())
-  .use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, customOptions))
   .use("/", routes)
   .use(errorHandler);
 

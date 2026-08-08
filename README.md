@@ -1,55 +1,42 @@
-# EventVerse API 🎟️✨
+# EventVerse API
 
-**EventVerse API** is a RESTful backend web service designed for managing live events, venues, ticket sales, and attendee reviews. Built with Node.js, Express, MongoDB Atlas, and Auth0 for CSE341 (Web Services).
+EventVerse API is a Node.js/Express RESTful API designed to manage events, venues, tickets, and user reviews with MongoDB as the database, fully documented with Swagger UI and secured using Auth0 OAuth authentication.
 
----
+## 🚀 Live Demo & API Documentation
 
-## 🌐 Live Deployment & API Documentation
-
-- **Live Application:** Pending
-- **Swagger Documentation:** Pending
+- **Render Live API Docs:** [https://eventverse.onrender.com/api-docs](https://eventverse.onrender.com/api-docs) _(Replace with your Render URL)_
 
 ---
 
-## 🚀 Features
+## 🔐 Auth0 Credentials for Testing
 
-- **Complete CRUD Operations:** Full `GET`, `POST`, `PUT`, and `DELETE` support across 4 database collections.
-- **Authentication:** Secured endpoints using Auth0 / OpenID Connect (`express-openid-connect`).
-- **Data Validation:** Strict payload validation on `POST` and `PUT` routes using `express-validator`.
-- **Error Handling:** Centralized exception middleware returning standardized HTTP status codes (400, 401, 404, 500).
-- **Interactive Docs:** Auto-generated Swagger UI served at `/api-docs`.
+To test protected routes (POST, PUT, DELETE operations) via Swagger UI or directly, you can use the test user account:
 
----
-
-## 🗄️ Database Collections Structure
-
-The database (`eventverse_db`) contains four collections:
-
-1. **`events`** _(Primary — 8 Fields)_: `title`, `description`, `category`, `date`, `ticketPrice`, `totalCapacity`, `organizerEmail`, `isPublished`
-2. **`venues`** _(5 Fields)_: `name`, `address`, `city`, `capacity`, `contactPhone`
-3. **`tickets`** _(6 Fields)_: `eventId`, `userEmail`, `purchaseDate`, `seatNumber`, `pricePaid`, `status`
-4. **`reviews`** _(5 Fields)_: `eventId`, `userEmail`, `rating`, `comment`, `createdAt`
+- **Email:** `susana@eventverse.com`
+- **Password:** `123456`
 
 ---
 
-## 🛠️ Tech Stack & Dependencies
+## 🛠️ Features & Architecture
 
-- **Runtime:** Node.js
-- **Framework:** Express.js
-- **Database:** MongoDB Atlas (Native Driver / Mongoose)
-- **Authentication:** Auth0 (`express-openid-connect`)
-- **Documentation:** `swagger-ui-express` & `swagger-autogen`
-- **Validation:** `express-validator`
-- **Environment Variables:** `dotenv`
+- **MVC Pattern:** Modular structure separating routes, controllers, and database handlers.
+- **Data Validation:** Strict input validation using `express-validator` returning HTTP 400 Bad Request on invalid payloads.
+- **Error Handling:** Global try/catch wrappers and error-handling middleware.
+- **OAuth Authentication:** Integration with Auth0 (`express-openid-connect`). Unprotected GET routes remain publicly accessible; POST, PUT, and DELETE routes require an active session.
+- **Interactive Swagger UI Bar:** Dynamic header bar displaying login status (`Logged in as: ...` or `Not logged in`) with quick Login/Logout action buttons.
+- **Unit Testing:** Automated unit tests using Jest and Supertest.
 
 ---
 
-## ⚙️ Local Setup Instructions
+## ⚙️ Environment Variables (.env)
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/itsmejared/EventVerse.git](https://github.com/itsmejared/EventVerse.git)
-   cd eventverse-api
-   pnpm i
-   pnpm dev
-   ```
+Create a `.env` file in the root directory with the following variables:
+
+```env
+PORT=8080
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/eventverse
+SECRET=a_long_random_string_with_at_least_32_characters
+BASE_URL=http://localhost:8080
+CLIENT_ID=your_auth0_client_id
+ISSUER_BASE_URL=[https://your-domain.us.auth0.com](https://your-domain.us.auth0.com)
+```
