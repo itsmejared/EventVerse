@@ -18,10 +18,6 @@ export const getAllTickets = async (req, res, next) => {
 export const getTicketById = async (req, res, next) => {
   // #swagger.tags = ['Tickets']
   try {
-    if (!ObjectId.isValid(req.params.id)) {
-      return res.status(400).json({ message: "Invalid ticket ID format" });
-    }
-
     const db = getDb();
     const ticket = await db.collection("tickets").findOne({ _id: new ObjectId(req.params.id) });
 
@@ -62,10 +58,6 @@ export const createTicket = async (req, res, next) => {
 export const updateTicket = async (req, res, next) => {
   // #swagger.tags = ['Tickets']
   try {
-    if (!ObjectId.isValid(req.params.id)) {
-      return res.status(400).json({ message: "Invalid ticket ID format" });
-    }
-
     const { eventId, userEmail, purchaseDate, seatNumber, pricePaid, status } = req.body;
 
     const db = getDb();
@@ -97,10 +89,6 @@ export const updateTicket = async (req, res, next) => {
 export const deleteTicket = async (req, res, next) => {
   // #swagger.tags = ['Tickets']
   try {
-    if (!ObjectId.isValid(req.params.id)) {
-      return res.status(400).json({ message: "Invalid ticket ID format" });
-    }
-
     const db = getDb();
     const result = await db.collection("tickets").deleteOne({ _id: new ObjectId(req.params.id) });
 

@@ -14,11 +14,11 @@ const router = express.Router();
 
 // PUBLIC ROUTES (No login required)
 router.get("/", getAllEvents);
-router.get("/:id", getEventById);
+router.get("/:id", validateId, getEventById);
 
 // PROTECTED ROUTES (Requires active Auth0 session)
-router.post("/", requiresAuth(), createEvent);
-router.put("/:id", requiresAuth(), updateEvent);
-router.delete("/:id", requiresAuth(), deleteEvent);
+router.post("/", requiresAuth(), validateEvent, createEvent);
+router.put("/:id", requiresAuth(), validateId, validateEvent, updateEvent);
+router.delete("/:id", requiresAuth(), validateId, deleteEvent);
 
 export default router;

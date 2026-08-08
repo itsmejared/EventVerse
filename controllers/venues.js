@@ -18,10 +18,6 @@ export const getAllVenues = async (req, res, next) => {
 export const getVenueById = async (req, res, next) => {
   // #swagger.tags = ['Venues']
   try {
-    if (!ObjectId.isValid(req.params.id)) {
-      return res.status(400).json({ message: "Invalid venue ID format" });
-    }
-
     const db = getDb();
     const venue = await db.collection("venues").findOne({ _id: new ObjectId(req.params.id) });
 
@@ -55,10 +51,6 @@ export const createVenue = async (req, res, next) => {
 export const updateVenue = async (req, res, next) => {
   // #swagger.tags = ['Venues']
   try {
-    if (!ObjectId.isValid(req.params.id)) {
-      return res.status(400).json({ message: "Invalid venue ID format" });
-    }
-
     const { name, address, city, capacity, contactPhone } = req.body;
 
     const db = getDb();
@@ -83,10 +75,6 @@ export const updateVenue = async (req, res, next) => {
 export const deleteVenue = async (req, res, next) => {
   // #swagger.tags = ['Venues']
   try {
-    if (!ObjectId.isValid(req.params.id)) {
-      return res.status(400).json({ message: "Invalid venue ID format" });
-    }
-
     const db = getDb();
     const result = await db.collection("venues").deleteOne({ _id: new ObjectId(req.params.id) });
 

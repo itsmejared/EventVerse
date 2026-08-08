@@ -48,7 +48,7 @@ export const createEvent = async (req, res, next) => {
     };
 
     const result = await db.collection("events").insertOne(newEvent);
-    res.status(201).json({ acknowledged: result.acknowledged, insertedId: result.insertedId });
+    res.status(201).json({ _id: result.insertedId, ...newEvent });
   } catch (error) {
     next(error);
   }

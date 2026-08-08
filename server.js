@@ -4,13 +4,10 @@ import cors from "cors";
 import authPkg from "express-openid-connect";
 const { auth } = authPkg;
 import swaggerUi from "swagger-ui-express";
-import { createRequire } from "module";
 import { initDb } from "./database/connection.js";
 import routes from "./routes/index.js";
 import { errorHandler } from "./middleware/errorHandler.js";
-
-const require = createRequire(import.meta.url);
-const swaggerDocument = require("./swagger-output.json");
+import swaggerDocument from "./swagger-output.json" with { type: "json" };
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,8 +26,6 @@ const config = {
 app
   .use(cors())
   .use(express.json())
-  .use(express.urlencoded({ extended: true }))
-  .use(express.static("public"))
   .use(auth(config))
   .use(
     "/api-docs",
