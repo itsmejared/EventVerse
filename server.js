@@ -27,6 +27,7 @@ app
   .use(cors())
   .use(express.json())
   .use(auth(config))
+  .use(express.static("public"))
   .use(
     "/api-docs",
     swaggerUi.serve,

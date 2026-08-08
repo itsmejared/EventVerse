@@ -11,6 +11,24 @@ router.get("/", (req, res) => {
   res.redirect("/api-docs");
 });
 
+router.get("/auth-status", (req, res) => {
+  // #swagger.ignore = true
+  if (req.oidc.isAuthenticated()) {
+    res.json({
+      isAuthenticated: true,
+      user: {
+        name: req.oidc.user.name || req.oidc.user.nickname || req.oidc.user.email,
+        email: req.oidc.user.email,
+      },
+    });
+  } else {
+    res.json({
+      isAuthenticated: false,
+      user: null,
+    });
+  }
+});
+
 router.use("/events", eventsRoutes);
 router.use("/venues", venuesRoutes);
 router.use("/tickets", ticketsRoutes);

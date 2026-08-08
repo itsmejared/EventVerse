@@ -8,7 +8,7 @@
     "dev": "node swagger.js && nodemon server.js",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose --detectOpenHandles --forceExit --runInBand"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose --detectOpenHandles --forceExit --runInBand --silent"
   },
   "author": "Jared Huayta, Artur Calderon and Katherine Gonzales",
   "license": "ISC",
